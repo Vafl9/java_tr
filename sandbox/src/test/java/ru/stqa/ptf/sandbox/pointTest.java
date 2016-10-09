@@ -11,8 +11,7 @@ public class pointTest {
 
         Point b = new Point(1,3);
         Point c = new Point(1,8);
-        b.distance(b,c);
-        System.out.println();
+        System.out.println(b.distance(b,c));
         Assert.assertEquals(b.distance(b,c), 5.0);
     }
 }
