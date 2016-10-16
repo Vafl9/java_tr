@@ -15,9 +15,25 @@ public class ContactHelper extends HelperBase {
         type(By.name("firstname"),userData.getName());
         type(By.name("lastname"),userData.getLastName());
         type(By.name("email"),userData.getMail());
+
+    }
+
+    public void submitCreationUser()
+    {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
 
+    public void deleteUser() {
+        click(By.xpath(".//*[@id='content']/form[2]/div[2]/input"));
+        wd.switchTo().alert().accept();
+    }
 
+    public void selectUser() {
+        click(By.xpath(".//*[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
+
+    public void submitUpdateUser() {
+        click(By.xpath(".//*[@id='content']/form[1]/input[22]"));
+    }
 }
