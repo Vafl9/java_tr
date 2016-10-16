@@ -13,15 +13,15 @@ public class ContactHelper extends HelperBase {
 
     public void createUser(ContactData userData, boolean creation) {
 
-        click(By.linkText("add new"));
+        click(By.xpath(".//*[@id='nav']/ul/li[2]/a"));
         type(By.name("firstname"),userData.getName());
         type(By.name("lastname"),userData.getLastName());
         type(By.name("email"),userData.getMail());
 
 
-        if(creation){ new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());}
+        if(creation){ new Select(wd.findElement(By.xpath(".//*[@id='content']/form/select[5]"))).selectByVisibleText(userData.getGroup());}
         else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
+            Assert.assertFalse(isElementPresent(By.xpath(".//*[@id='content']/form/select[5]")));
         }
 
     }
@@ -33,7 +33,7 @@ public class ContactHelper extends HelperBase {
 
 
     public void deleteUser() {
-        click(By.xpath(".//*[@id='content']/form[2]/div[2]/input"));
+        click(By.xpath(".//*[@id='content']/form/input[21]"));
         wd.switchTo().alert().accept();
     }
 
