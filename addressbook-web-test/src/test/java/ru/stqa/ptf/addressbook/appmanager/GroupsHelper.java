@@ -31,14 +31,24 @@ public class GroupsHelper extends HelperBase {
         click(By.name("new"));
     }
 
+    public boolean isThereAGroup() {
+        return isElementPresent(By.xpath(".//*[@name='selected[]']"));
+    }
 
+    public void createGroup(GroupDate groupDate)
+    {
+        InitGroupCreation();
+        fillGroupForm(groupDate);
+        submitGroupCreation();
+        returnToGroupPage();
+    }
 
     public void deleteCreationGroup() {
         click(By.xpath("//div[@id='content']/form/input[5]"));
     }
 
     public void selectGroup() {
-        click(By.name("selected[]"));
+        click(By.xpath(".//*[@name='selected[]']"));
     }
 
     public void initGroupModification() {

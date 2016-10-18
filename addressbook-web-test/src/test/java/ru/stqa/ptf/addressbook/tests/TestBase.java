@@ -16,7 +16,7 @@ public class TestBase {
 
     @AfterMethod
     public void tearDown() {
-        //app.stop(); //// TODO: 10/17/2016 Error
+        app.stop();
     }
 
 }

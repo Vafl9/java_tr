@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void createUser(ContactData userData, boolean creation) {
+    public void createContact(ContactData userData, boolean creation) {
 
         click(By.xpath(".//*[@id='nav']/ul/li[2]/a"));
         type(By.name("firstname"),userData.getName());
@@ -26,22 +26,35 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void submitCreationUser()
+    public void submitCreationContact()
     {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
 
     public void deleteUser() {
-        click(By.xpath(".//*[@id='content']/form/input[21]"));
+        click(By.xpath(".//*[@id='content']/form[2]/div[2]/input"));
         wd.switchTo().alert().accept();
     }
 
-    public void selectUser() {
+    public void editContact() {
         click(By.xpath(".//*[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
-    public void submitUpdateUser() {
+    public void submitUpdateContact() {
         click(By.xpath(".//*[@id='content']/form[1]/input[22]"));
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.xpath(".//*[@name='selected[]']"));
+    }
+
+    public void selectContact() {
+        click(By.xpath(".//*[@name='selected[]']"));
+    }
+
+    public void createNewContact(ContactData contactData, boolean b) {
+        createContact(contactData,b);
+        submitCreationContact();
     }
 }
