@@ -5,6 +5,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class HelperBase {
     protected final WebDriver wd;
@@ -50,5 +51,20 @@ public class HelperBase {
             return false;
         }
 
+    }
+
+    protected String GetElementText(By by)
+    {
+       return wd.findElement(by).getText();
+    }
+
+    public void SelectByText(By by,String text)
+    {
+        new Select(wd.findElement(by)).selectByVisibleText(text);
+    }
+
+    public void findElement(By by)
+    {
+        wd.findElement(by);
     }
 }

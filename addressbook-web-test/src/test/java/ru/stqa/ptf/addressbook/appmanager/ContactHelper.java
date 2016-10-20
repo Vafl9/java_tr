@@ -19,7 +19,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"),userData.getMail());
 
 
-        if(creation){ new Select(wd.findElement(By.xpath(".//*[@id='content']/form/select[5]"))).selectByVisibleText(userData.getGroup());}
+        if(creation){ SelectByText(By.xpath(".//*[@id='content']/form/select[5]"),userData.getGroup());}
         else {
             Assert.assertFalse(isElementPresent(By.xpath(".//*[@id='content']/form/select[5]")));
         }
@@ -38,7 +38,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void editContact() {
-        click(By.xpath(".//*[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+        click(By.xpath("//*[@id='maintable']/tbody/tr[2]/td[8]/a"));
     }
 
     public void submitUpdateContact() {
