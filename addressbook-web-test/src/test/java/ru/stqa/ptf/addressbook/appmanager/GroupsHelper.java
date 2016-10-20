@@ -2,8 +2,12 @@ package ru.stqa.ptf.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.ptf.addressbook.model.GroupDate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupsHelper extends HelperBase {
 
@@ -35,8 +39,7 @@ public class GroupsHelper extends HelperBase {
         return isElementPresent(By.xpath(".//*[@name='selected[]']"));
     }
 
-    public void createGroup(GroupDate groupDate)
-    {
+    public void createGroup(GroupDate groupDate) {
         InitGroupCreation();
         fillGroupForm(groupDate);
         submitGroupCreation();
@@ -47,8 +50,8 @@ public class GroupsHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[5]"));
     }
 
-    public void selectGroup() {
-        click(By.xpath(".//*[@name='selected[]']"));
+    public void selectGroup(int i) {
+        wd.findElements(By.xpath(".//*[@name='selected[]']")).get(i).click();
     }
 
     public void initGroupModification() {
@@ -60,6 +63,21 @@ public class GroupsHelper extends HelperBase {
     }
 
     public int getGroupCount() {
-            return wd.findElements(By.xpath(".//*[@name='selected[]']")).size();
+        return wd.findElements(By.xpath(".//*[@name='selected[]']")).size();
+    }
+
+    public List<GroupDate> getGroupList() {
+        List<GroupDate> groups = new ArrayList<GroupDate>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements)
+        {
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String name = element.getText();
+            GroupDate groupDate = new GroupDate(name, null, null, id);
+            groups.add(groupDate);
+        }
+
+         return groups;
+
     }
 }

@@ -4,22 +4,41 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.GroupDate;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+
 public class GroupModificationTest extends TestBase {
 
     @Test
     public void TestGroupModification(){
         app.getNavigationHelper().gotoGroupPage();
-        int before = app.getGroupsHelper().getGroupCount();
+
         if(! app.getGroupsHelper().isThereAGroup())
         {
             app.getGroupsHelper().createGroup(new GroupDate("Test1", "Test1", "Test1"));
         }
-        app.getGroupsHelper().selectGroup();
+        List<GroupDate> before = app.getGroupsHelper().getGroupList();
+        app.getGroupsHelper().selectGroup(before.size() - 1);
         app.getGroupsHelper().initGroupModification();
-        app.getGroupsHelper().fillGroupForm(new GroupDate("Test1", "Test1", "Test1"));
+        GroupDate group = new GroupDate("New_Test1", "Test1", "Test1", before.get(before.size() - 1).getId());
+        app.getGroupsHelper().fillGroupForm(group);
         app.getGroupsHelper().submitGroupModification();
         app.getGroupsHelper().returnToGroupPage();
-        int after = app.getGroupsHelper().getGroupCount();
-        Assert.assertEquals(after, before);
+        List<GroupDate> after = app.getGroupsHelper().getGroupList();
+        Assert.assertEquals(after.size(), before.size());
+
+
+        before.remove(before.size() - 1);
+        before.add(group);
+
+        Comparator<? super GroupDate> byId = (g1,g2) -> Integer.compare(g1.getId(),g2.getId());
+        before.sort(byId);
+        after.sort(byId);
+
+        Assert.assertEquals(before,after);
+
+
     }
 }
