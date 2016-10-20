@@ -58,4 +58,8 @@ public class GroupsHelper extends HelperBase {
     public void submitGroupModification() {
         click(By.xpath(".//*[@id='content']/form/input[3]"));
     }
+
+    public int getGroupCount() {
+            return wd.findElements(By.xpath(".//*[@name='selected[]']")).size();
+    }
 }
