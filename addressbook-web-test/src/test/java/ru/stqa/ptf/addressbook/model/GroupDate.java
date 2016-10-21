@@ -1,21 +1,17 @@
 package ru.stqa.ptf.addressbook.model;
 
 public class GroupDate {
-    private final String name;
-    private final String header;
-    private final String footer;
+    private String name;
+    private String header;
+    private String footer;
 
 
-    private int id;
+    private int id = Integer.MAX_VALUE;;
 
 
-    public GroupDate(String name, String header, String footer, int id) {
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-        this.id = id;
 
-    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -33,13 +29,6 @@ public class GroupDate {
         return name != null ? name.hashCode() : 0;
     }
 
-    public GroupDate(String name, String header, String footer) {
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-        this.id = Integer.MAX_VALUE;
-
-    }
 
     public String getName() {
         return name;
@@ -65,7 +54,23 @@ public class GroupDate {
         return id;
     }
 
-    public void setId(int id) {
+    public GroupDate withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public GroupDate withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public GroupDate withHeader(String header) {
+        this.header = header;
+        return this;
+    }
+
+    public GroupDate withFooter(String footer) {
+        this.footer = footer;
+        return this;
     }
 }
