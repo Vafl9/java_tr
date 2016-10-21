@@ -7,7 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.ptf.addressbook.model.GroupDate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupsHelper extends HelperBase {
 
@@ -46,8 +48,8 @@ public class GroupsHelper extends HelperBase {
         returnToGroupPage();
     }
 
-    public void modify(int index, GroupDate group) {
-        selectGroup(index);
+    public void modify(GroupDate group) {
+        selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
@@ -58,6 +60,17 @@ public class GroupsHelper extends HelperBase {
        selectGroup(size);
        deleteCreationGroup();
        returnToGroupPage();
+    }
+
+
+    public void delete(GroupDate deletedGroup) {
+        selectGroupById(deletedGroup.getId());
+        deleteCreationGroup();
+        returnToGroupPage();
+    }
+
+    private void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id+ "']")).click();
     }
 
     public void deleteCreationGroup() {
@@ -80,8 +93,9 @@ public class GroupsHelper extends HelperBase {
         return wd.findElements(By.xpath(".//*[@name='selected[]']")).size();
     }
 
-    public List<GroupDate> list() {
-        List<GroupDate> groups = new ArrayList<>();
+
+    public Set<GroupDate> all() {
+        Set<GroupDate> groups = new HashSet<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements)
         {
@@ -90,7 +104,8 @@ public class GroupsHelper extends HelperBase {
             groups.add(new GroupDate().withName(name).withId(id));
         }
 
-         return groups;
+        return groups;
 
     }
+
 }
