@@ -8,6 +8,12 @@ public class ContactDate {
 
 
 
+    private String home;
+    private String mobile;
+    private String work;
+
+
+
     private int id = Integer.MAX_VALUE;
 
 
@@ -80,6 +86,34 @@ public class ContactDate {
 
     public ContactDate withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+
+    public String getHomePhone() {
+        return home;
+    }
+
+    public String getMobilePhone() {
+        return mobile;
+    }
+
+    public String getWorkPhone() {
+        return work;
+    }
+
+    public ContactDate withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactDate withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public ContactDate withWork(String work) {
+        this.work = work;
         return this;
     }
 
