@@ -7,6 +7,7 @@ import ru.stqa.ptf.addressbook.model.ContactDate;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 
@@ -30,7 +31,7 @@ public class ContactMailTest extends TestBase {
     }
 
     private String mergeEmail(ContactDate contact) {
-        return Arrays.asList(contact.getEmail(), contact.getSecondEmail()).stream().filter((s) -> !s.equals(""))
+        return Stream.of(contact.getEmail(), contact.getSecondEmail()).filter((s) -> !s.equals(""))
                 .collect(Collectors.joining("\n"));
 
     }

@@ -8,6 +8,7 @@ import ru.stqa.ptf.addressbook.model.ContactDate;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
@@ -34,7 +35,7 @@ public class ContactInformationTest extends TestBase {
     }
 
     private String mergeInformation(ContactDate contact) {
-        return Arrays.asList(contact.getAllContactInformation()).stream().filter((s) -> !s.equals(""))
+        return Stream.of(contact.getAllContactInformation()).filter((s) -> !s.equals(""))
                 .map(ContactInformationTest::cleaned)
                 .collect(Collectors.joining("\n"));
 
