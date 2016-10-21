@@ -16,6 +16,11 @@ public class ContactDate {
     private String allMail;
 
 
+
+    private String address;
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -152,5 +157,15 @@ public class ContactDate {
 
     public int getId() {
         return id;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public ContactDate withAddress(String address) {
+        this.address = address;
+        return this;
     }
 }

@@ -106,6 +106,7 @@ public class ContactHelper extends HelperBase {
             String NamePath = ".//*[@id='maintable']/tbody/tr[%s]/td[3]";
             String allPhonePath = ".//*[@id='maintable']/tbody/tr[%s]/td[6]";
             String allMailPath = ".//*[@id='maintable']/tbody/tr[%s]/td[5]";
+            String addressPath = ".//*[@id='maintable']/tbody/tr[%s]/td[4]";
 
 
             int id = Integer.parseInt(element.getAttribute("value"));
@@ -114,11 +115,11 @@ public class ContactHelper extends HelperBase {
             String lastName = wd.findElement(By.xpath(String.format(lastNamePath, index))).getText();
             String name = wd.findElement(By.xpath(String.format(NamePath, index))).getText();
             String allPhones = wd.findElement(By.xpath(String.format(allPhonePath, index))).getText();
-
+            String address = wd.findElement(By.xpath(String.format(addressPath,index))).getText();
             String allMail = wd.findElement(By.xpath(String.format(allMailPath,index))).getText();
 
 
-            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withAllPhones(allPhones).withAllMail(allMail));
+            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withAllPhones(allPhones).withAllMail(allMail).withAddress(address));
 
             index++;
         }
@@ -136,11 +137,12 @@ public class ContactHelper extends HelperBase {
         String work = wd.findElement(By.name("work")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
 
 
         wd.navigate().back();
         return new ContactDate().withId(contact.getId()).withName(firstName).withLastName(lastName).
-                withHome(home).withMobile(mobile).withWork(work).withEmail(email).withSecondEmail(secondEmail);
+                withHome(home).withMobile(mobile).withWork(work).withEmail(email).withSecondEmail(secondEmail).withAddress(address);
 
     }
 }
