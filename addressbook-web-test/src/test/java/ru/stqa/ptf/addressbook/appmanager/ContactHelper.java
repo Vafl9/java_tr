@@ -47,8 +47,9 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void selectContactById(int i) {
-        wd.findElement(By.xpath(String.format(".//*[@id='maintable']/tbody/tr[%s]/td[8]/a/img",i))).click();
+    public void selectContactById(String path) {
+        System.out.println(path);
+        wd.findElement(By.xpath(path)).click();
     }
 
     public void submitUpdateContact() {
@@ -58,7 +59,7 @@ public class ContactHelper extends HelperBase {
 
 
     public void modify(ContactDate contact) {
-        selectContactById(contact.getId());
+        selectContactById(contact.getEditButtonXPath());
         fillFormContact(contact,false);
         submitUpdateContact();
         returnToContactPage();
@@ -67,12 +68,6 @@ public class ContactHelper extends HelperBase {
     public void returnToContactPage()
     {
         click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
-    }
-
-
-
-    public boolean isThereAContact() {
-        return isElementPresent(By.xpath(".//*[@name='selected[]']"));
     }
 
     public void selectContact(int i) {
@@ -92,8 +87,9 @@ public class ContactHelper extends HelperBase {
 
     public Set<ContactDate> all() {
 
-        int lastNameIndex = 2;
-        int nameIndex = 2;
+        int index = 2;
+
+
 
         Set<ContactDate> contacts = new HashSet<>();
 
@@ -103,19 +99,20 @@ public class ContactHelper extends HelperBase {
         {
             String lastNamePath = ".//*[@id='maintable']/tbody/tr[%s]/td[2]";
             String NamePath = ".//*[@id='maintable']/tbody/tr[%s]/td[3]";
+            String editButton = ".//*[@id='maintable']/tbody/tr[%s]/td[8]";
+
+            String editButtonPath = String.format(editButton,index);
 
             int id = Integer.parseInt(element.getAttribute("value"));
-            System.out.println(element.getAttribute("value"));
 
 
-            String lastName = wd.findElement(By.xpath(String.format(lastNamePath,lastNameIndex))).getText();
-            String name = wd.findElement(By.xpath(String.format(NamePath,nameIndex))).getText();
+            String lastName = wd.findElement(By.xpath(String.format(lastNamePath,index))).getText();
+            String name = wd.findElement(By.xpath(String.format(NamePath,index))).getText();
 
 
-            contacts.add(new ContactDate().withName(name).withLastName(lastName).withId(id));
+            contacts.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withEditButton(editButtonPath));
 
-            lastNameIndex++;
-            nameIndex++;
+            index++;
         }
 
         return contacts;

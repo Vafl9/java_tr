@@ -5,6 +5,7 @@ public class ContactDate {
     private String lastName;
     private String mail;
     private String group;
+    public String editButtonXPath;
 
 
 
@@ -26,6 +27,8 @@ public class ContactDate {
     public String getGroup() {
         return group;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -78,6 +81,16 @@ public class ContactDate {
 
     public ContactDate withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public String getEditButtonXPath() {
+        return editButtonXPath;
+    }
+
+    public ContactDate withEditButton(String editButton) {
+
+        this.editButtonXPath = editButton;
         return this;
     }
 

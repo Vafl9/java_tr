@@ -26,7 +26,7 @@ public class ContactModificationTest extends TestBase {
         Set<ContactDate> before = app.contact().all();
         ContactDate modifiedContact = before.iterator().next();
         ContactDate contact = new ContactDate().
-                withName("Dzhodzhua").withLastName("Dzhodzhua").withMail("Head@mail.ru").withGroup("Test1").withId(modifiedContact.getId());
+                withName("Dzhodzhua").withLastName("Dzhodzhua").withMail("Head@mail.ru").withEditButton(modifiedContact.getEditButtonXPath()).withGroup("Test1").withId(modifiedContact.getId());
         app.contact().modify(contact);
         Set<ContactDate> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
