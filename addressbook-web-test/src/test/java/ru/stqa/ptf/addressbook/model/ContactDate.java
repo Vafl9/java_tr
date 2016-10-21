@@ -3,36 +3,17 @@ package ru.stqa.ptf.addressbook.model;
 public class ContactDate {
     private String name;
     private String lastName;
-    private String mail;
     private String group;
 
-
+    private String allPhones;
+    private String email;
+    private String secondEmail;
 
     private String home;
     private String mobile;
     private String work;
 
-
-
-    private int id = Integer.MAX_VALUE;
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
+    private String allMail;
 
 
     @Override
@@ -79,10 +60,6 @@ public class ContactDate {
         return this;
     }
 
-    public ContactDate withMail(String mail) {
-        this.mail = mail;
-        return this;
-    }
 
     public ContactDate withGroup(String group) {
         this.group = group;
@@ -115,6 +92,61 @@ public class ContactDate {
     public ContactDate withWork(String work) {
         this.work = work;
         return this;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactDate withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+
+    public ContactDate withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public String getSecondEmail() {
+        return secondEmail;
+    }
+
+    public ContactDate withSecondEmail(String secondEmail) {
+        this.secondEmail = secondEmail;
+        return this;
+    }
+
+
+    public String getAllMail() {
+        return allMail;
+    }
+
+    public ContactDate withAllMail(String allMail) {
+        this.allMail = allMail;
+        return this;
+    }
+
+    private int id = Integer.MAX_VALUE;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
+    public String getGroup() {
+        return group;
     }
 
 

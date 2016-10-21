@@ -1,18 +1,12 @@
 package ru.stqa.ptf.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.junit.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.ContactDate;
 import ru.stqa.ptf.addressbook.model.Contacts;
 
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.junit.MatcherAssert.*;
-import static org.testng.Assert.*;
 
 public class ContactDeletionTest extends TestBase {
 
@@ -21,7 +15,7 @@ public class ContactDeletionTest extends TestBase {
     public void ensurePrecondition() {
         app.goTo().contactPage();
         if (app.contact().all().size() == 0) {
-            app.contact().createNewContact(new ContactDate().withName("Andrew").withLastName("Dzhodzhua").withMail("Head@mail.ru").withGroup("Test1"), true);
+            app.contact().createNewContact(new ContactDate().withName("Andrew").withLastName("Dzhodzhua").withEmail("Head@mail.ru").withGroup("Test1"), true);
         }
     }
 
