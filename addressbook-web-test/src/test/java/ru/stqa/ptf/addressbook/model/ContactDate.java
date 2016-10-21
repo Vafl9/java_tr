@@ -1,33 +1,15 @@
 package ru.stqa.ptf.addressbook.model;
 
 public class ContactDate {
-    private final String name;
-    private final String lastName;
-    private final String mail;
+    private String name;
+    private String lastName;
+    private String mail;
     private String group;
 
 
 
-    private int id;
+    private int id = Integer.MAX_VALUE;
 
-
-    public ContactDate(String name, String lastName, String mail, String group, int id) {
-        this.name = name;
-        this.lastName = lastName;
-        this.mail = mail;
-        this.group = group;
-        this.id = id;
-
-    }
-
-    public ContactDate(String name, String lastName, String mail, String group) {
-        this.name = name;
-        this.lastName = lastName;
-        this.mail = mail;
-        this.group = group;
-        this.id = Integer.MAX_VALUE;
-
-    }
 
     public String getName() {
         return name;
@@ -52,6 +34,7 @@ public class ContactDate {
 
         ContactDate that = (ContactDate) o;
 
+        if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
 
@@ -61,6 +44,7 @@ public class ContactDate {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + id;
         return result;
     }
 
@@ -72,8 +56,29 @@ public class ContactDate {
                 '}';
     }
 
-    public void setId(int id) {
+    public ContactDate withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public ContactDate withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactDate withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactDate withMail(String mail) {
+        this.mail = mail;
+        return this;
+    }
+
+    public ContactDate withGroup(String group) {
+        this.group = group;
+        return this;
     }
 
     public int getId() {

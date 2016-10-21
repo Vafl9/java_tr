@@ -9,15 +9,12 @@ public class NavigationHelper extends HelperBase {
         super(wd);
     }
 
-    public void gotoHomePage() {
-        if(isElementPresent(By.id("maintable")))
-        {
-            return;
-        }
-        click(By.linkText("home"));
+    public void contactPage()
+    {
+        click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
     }
 
-    public void gotoGroupPage() {
+    public void groupPage() {
         if (!isElementPresent(By.tagName("h1")) && !GetElementText(By.tagName("h1")).equals("Groups") && !isElementPresent(By.tagName("new"))) {
             return;
         }

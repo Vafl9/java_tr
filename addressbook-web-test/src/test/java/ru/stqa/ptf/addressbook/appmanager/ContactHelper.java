@@ -6,8 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.ptf.addressbook.model.ContactDate;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -34,19 +35,20 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void submitCreationContact()
+    public void submitCreation()
     {
         click(By.xpath(".//*[@id='content']/form[1]/input[1]"));
     }
 
 
-    public void deleteUser() {
-        click(By.xpath(".//*[@id='content']/form[2]/div[2]/input"));
+    public void delete(ContactDate contact) {
+        selectContact(contact.getId());
+        wd.findElement(By.xpath(".//*[@id='content']/form[2]/div[2]/input")).click();
         wd.switchTo().alert().accept();
     }
 
-    public void editContact(int i) {
-        wd.findElement(By.xpath(String.format("//.//*[@id='maintable']/tbody/tr[%s]/td[8]/a/img",i))).click();
+    public void selectContactById(int i) {
+        wd.findElement(By.xpath(String.format(".//*[@id='maintable']/tbody/tr[%s]/td[8]/a/img",i))).click();
     }
 
     public void submitUpdateContact() {
@@ -54,33 +56,46 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void goToContactPage()
+
+    public void modify(ContactDate contact) {
+        selectContactById(contact.getId());
+        fillFormContact(contact,false);
+        submitUpdateContact();
+        returnToContactPage();
+    }
+
+    public void returnToContactPage()
     {
         click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
     }
+
+
 
     public boolean isThereAContact() {
         return isElementPresent(By.xpath(".//*[@name='selected[]']"));
     }
 
     public void selectContact(int i) {
-        wd.findElements(By.xpath(".//*[@name='selected[]']")).get(i).click();
+
+        wd.findElement(By.xpath(String.format(".//*[@id='%s']",i))).click();
     }
 
     public void createNewContact(ContactDate contactData, boolean b) {
         createContact();
         fillFormContact(contactData,b);
-        submitCreationContact();
+        submitCreation();
         click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
 
     }
 
-    public List<ContactDate> getContactList() {
+
+
+    public Set<ContactDate> all() {
 
         int lastNameIndex = 2;
         int nameIndex = 2;
 
-        List<ContactDate> contacts = new ArrayList<>();
+        Set<ContactDate> contacts = new HashSet<>();
 
         List<WebElement> elements = wd.findElements(By.xpath(".//td[@class='center']/*[@name ='selected[]']"));
 
@@ -90,14 +105,14 @@ public class ContactHelper extends HelperBase {
             String NamePath = ".//*[@id='maintable']/tbody/tr[%s]/td[3]";
 
             int id = Integer.parseInt(element.getAttribute("value"));
+            System.out.println(element.getAttribute("value"));
 
 
             String lastName = wd.findElement(By.xpath(String.format(lastNamePath,lastNameIndex))).getText();
             String name = wd.findElement(By.xpath(String.format(NamePath,nameIndex))).getText();
 
 
-            ContactDate groupDate = new ContactDate(name,lastName,null,null,id);
-            contacts.add(groupDate);
+            contacts.add(new ContactDate().withName(name).withLastName(lastName).withId(id));
 
             lastNameIndex++;
             nameIndex++;

@@ -1,20 +1,17 @@
 package ru.stqa.ptf.addressbook.tests;
 
-import org.apache.tools.ant.taskdefs.Get;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.GroupDate;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public class GroupModificationTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().gotoGroupPage();
+        app.goTo().groupPage();
 
         if (app.group().all().size() == 0) {
             app.group().create(new GroupDate().withName("Test1").withHeader("Test").withFooter("Test"));

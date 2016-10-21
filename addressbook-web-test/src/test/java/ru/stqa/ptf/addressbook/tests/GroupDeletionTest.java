@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.GroupDate;
 
-import java.util.List;
 import java.util.Set;
 
 public class GroupDeletionTest extends TestBase {
@@ -13,7 +12,7 @@ public class GroupDeletionTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().gotoGroupPage();
+        app.goTo().groupPage();
 
         if (app.group().all().size() == 0) {
             app.group().create(new GroupDate().withHeader("Test1").withHeader("Test1").withFooter("Test1"));
