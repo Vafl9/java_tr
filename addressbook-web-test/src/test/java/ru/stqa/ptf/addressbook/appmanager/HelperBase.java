@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
+
 public class HelperBase {
     protected final WebDriver wd;
 
@@ -30,6 +32,11 @@ public class HelperBase {
 
         }
 
+    }protected void attach(By locator, File file) {
+        if (file != null) {
+                wd.findElement(locator).sendKeys(file.getAbsolutePath());
+            System.out.println(file.getAbsolutePath());
+        }
     }
 
     public boolean isAlertPresent() {

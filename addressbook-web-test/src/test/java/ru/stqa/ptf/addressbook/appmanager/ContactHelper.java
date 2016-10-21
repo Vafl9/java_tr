@@ -19,15 +19,18 @@ public class ContactHelper extends HelperBase {
         click(By.xpath(".//*[@id='nav']/ul/li[2]/a"));
     }
 
-    public void fillFormContact(ContactDate userData, boolean creation) {
+    public void fillFormContact(ContactDate contactData, boolean creation) {
 
-        type(By.name("firstname"), userData.getName());
-        type(By.name("lastname"), userData.getLastName());
-        type(By.name("email"), userData.getEmail());
+        type(By.name("firstname"), contactData.getName());
+        type(By.name("lastname"), contactData.getLastName());
+        type(By.name("email"), contactData.getEmail());
+        attach(By.name("photo"), contactData.getPhoto());
 
 
         if (creation) {
-            SelectByText(By.xpath(".//*[@id='content']/form/select[5]"), userData.getGroup());
+            if(contactData.getGroup() != null) {
+                SelectByText(By.xpath(".//*[@id='content']/form/select[5]"), contactData.getGroup());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.xpath(".//*[@id='content']/form/select[5]")));
         }

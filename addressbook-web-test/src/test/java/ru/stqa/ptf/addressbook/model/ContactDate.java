@@ -1,24 +1,21 @@
 package ru.stqa.ptf.addressbook.model;
 
+import java.io.File;
+
 public class ContactDate {
     private String name;
     private String lastName;
     private String group;
-
     private String allPhones;
     private String email;
     private String secondEmail;
-
     private String home;
     private String mobile;
     private String work;
-
     private String allMail;
-
     private String allContactInformation;
-
-
     private String address;
+    private File photo;
 
 
     @Override
@@ -65,12 +62,10 @@ public class ContactDate {
         return this;
     }
 
-
     public ContactDate withGroup(String group) {
         this.group = group;
         return this;
     }
-
 
     public String getHomePhone() {
         return home;
@@ -108,7 +103,6 @@ public class ContactDate {
         return this;
     }
 
-
     public ContactDate withEmail(String email) {
         this.email = email;
         return this;
@@ -128,7 +122,6 @@ public class ContactDate {
         return this;
     }
 
-
     public String getAllMail() {
         return allMail;
     }
@@ -140,7 +133,6 @@ public class ContactDate {
 
     private int id = Integer.MAX_VALUE;
 
-
     public String getName() {
         return name;
     }
@@ -149,11 +141,9 @@ public class ContactDate {
         return lastName;
     }
 
-
     public String getGroup() {
         return group;
     }
-
 
     public int getId() {
         return id;
@@ -176,6 +166,15 @@ public class ContactDate {
 
     public ContactDate withAllContactInformation(String allContactInformation) {
         this.allContactInformation = allContactInformation;
+        return this;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactDate withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 }
