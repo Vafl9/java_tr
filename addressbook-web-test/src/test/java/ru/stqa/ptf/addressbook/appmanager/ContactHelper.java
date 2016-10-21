@@ -83,6 +83,10 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 
+    public void selectInformationContactById(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+    }
+
     private Contacts contactCache = null;
 
     public int getContactCount() {
@@ -115,11 +119,13 @@ public class ContactHelper extends HelperBase {
             String lastName = wd.findElement(By.xpath(String.format(lastNamePath, index))).getText();
             String name = wd.findElement(By.xpath(String.format(NamePath, index))).getText();
             String allPhones = wd.findElement(By.xpath(String.format(allPhonePath, index))).getText();
-            String address = wd.findElement(By.xpath(String.format(addressPath,index))).getText();
-            String allMail = wd.findElement(By.xpath(String.format(allMailPath,index))).getText();
+            String address = wd.findElement(By.xpath(String.format(addressPath, index))).getText();
+            String allMail = wd.findElement(By.xpath(String.format(allMailPath, index))).getText();
 
 
-            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withAllPhones(allPhones).withAllMail(allMail).withAddress(address));
+            String allInformation = name + lastName + address + allPhones + allMail;
+
+            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withAllPhones(allPhones).withAllMail(allMail).withAddress(address).withAllContactInformation(allInformation));
 
             index++;
         }
@@ -127,6 +133,7 @@ public class ContactHelper extends HelperBase {
         return new Contacts(contactCache);
 
     }
+
 
     public ContactDate infoFromEditForm(ContactDate contact) {
         selectModifyContactById(contact.getId());
@@ -139,10 +146,16 @@ public class ContactHelper extends HelperBase {
         String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
         String address = wd.findElement(By.name("address")).getAttribute("value");
 
-
         wd.navigate().back();
         return new ContactDate().withId(contact.getId()).withName(firstName).withLastName(lastName).
                 withHome(home).withMobile(mobile).withWork(work).withEmail(email).withSecondEmail(secondEmail).withAddress(address);
 
+    }
+
+    public ContactDate infoFromInformationForm(ContactDate contact) {
+        selectInformationContactById(contact.getId());
+        String contactInformation = wd.findElement(By.cssSelector("#content")).getText();
+        wd.navigate().back();
+        return new ContactDate().withAllContactInformation(contactInformation);
     }
 }

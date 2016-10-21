@@ -15,10 +15,10 @@ public class ContactDate {
 
     private String allMail;
 
+    private String allContactInformation;
 
 
     private String address;
-
 
 
     @Override
@@ -166,6 +166,16 @@ public class ContactDate {
 
     public ContactDate withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+
+    public String getAllContactInformation() {
+        return allContactInformation;
+    }
+
+    public ContactDate withAllContactInformation(String allContactInformation) {
+        this.allContactInformation = allContactInformation;
         return this;
     }
 }
