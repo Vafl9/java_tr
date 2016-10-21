@@ -45,6 +45,8 @@ public class ContactHelper extends HelperBase {
         selectContact(contact.getId());
         wd.findElement(By.xpath(".//*[@id='content']/form[2]/div[2]/input")).click();
         wd.switchTo().alert().accept();
+        contactCache = null;
+        returnToContactPage();
     }
 
     public void modifyContactByXPath(String path) {
@@ -53,7 +55,6 @@ public class ContactHelper extends HelperBase {
 
     public void submitUpdateContact() {
         click(By.xpath(".//*[@id='content']/form[1]/input[22]"));
-
     }
 
 
@@ -61,6 +62,7 @@ public class ContactHelper extends HelperBase {
         modifyContactByXPath(contact.getEditButtonXPath());
         fillFormContact(contact, false);
         submitUpdateContact();
+        contactCache = null;
         returnToContactPage();
     }
 
@@ -77,16 +79,27 @@ public class ContactHelper extends HelperBase {
         createContact();
         fillFormContact(contactData, b);
         submitCreation();
-        click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
+        contactCache = null;
+        returnToContactPage();
 
     }
+
+
+
+    private Contacts contactCache = null;
+
 
 
     public Contacts all() {
 
         int index = 2;
 
-        Contacts contacts = new Contacts();
+        if (contactCache != null)
+        {
+            return new Contacts(contactCache);
+        }
+
+        contactCache = new Contacts();
 
         List<WebElement> elements = wd.findElements(By.xpath(".//td[@class='center']/*[@name ='selected[]']"));
 
@@ -104,12 +117,12 @@ public class ContactHelper extends HelperBase {
             String name = wd.findElement(By.xpath(String.format(NamePath, index))).getText();
 
 
-            contacts.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withEditButton(editButtonPath));
+            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withEditButton(editButtonPath));
 
             index++;
         }
 
-        return contacts;
+        return new Contacts(contactCache);
 
     }
 }
