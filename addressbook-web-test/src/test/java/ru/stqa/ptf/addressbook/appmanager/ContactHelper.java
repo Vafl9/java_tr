@@ -49,9 +49,6 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void modifyContactByXPath(String path) {
-        wd.findElement(By.xpath(path)).click();
-    }
 
     public void submitUpdateContact() {
         click(By.xpath(".//*[@id='content']/form[1]/input[22]"));
@@ -59,7 +56,7 @@ public class ContactHelper extends HelperBase {
 
 
     public void modify(ContactDate contact) {
-        modifyContactByXPath(contact.getEditButtonXPath());
+        selectModifyContactById(contact.getId());
         fillFormContact(contact, false);
         submitUpdateContact();
         contactCache = null;
@@ -84,7 +81,10 @@ public class ContactHelper extends HelperBase {
 
     }
 
-
+    public void selectModifyContactById(int id)
+    {
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
+    }
 
     private Contacts contactCache = null;
 
@@ -109,9 +109,7 @@ public class ContactHelper extends HelperBase {
         for (WebElement element : elements) {
             String lastNamePath = ".//*[@id='maintable']/tbody/tr[%s]/td[2]";
             String NamePath = ".//*[@id='maintable']/tbody/tr[%s]/td[3]";
-            String editButton = ".//*[@id='maintable']/tbody/tr[%s]/td[8]";
 
-            String editButtonPath = String.format(editButton, index);
 
             int id = Integer.parseInt(element.getAttribute("value"));
 
@@ -120,7 +118,7 @@ public class ContactHelper extends HelperBase {
             String name = wd.findElement(By.xpath(String.format(NamePath, index))).getText();
 
 
-            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withEditButton(editButtonPath));
+            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id));
 
             index++;
         }

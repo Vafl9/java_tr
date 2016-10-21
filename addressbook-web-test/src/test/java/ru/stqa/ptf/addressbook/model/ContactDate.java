@@ -5,7 +5,6 @@ public class ContactDate {
     private String lastName;
     private String mail;
     private String group;
-    public String editButtonXPath;
 
 
 
@@ -84,15 +83,6 @@ public class ContactDate {
         return this;
     }
 
-    public String getEditButtonXPath() {
-        return editButtonXPath;
-    }
-
-    public ContactDate withEditButton(String editButton) {
-
-        this.editButtonXPath = editButton;
-        return this;
-    }
 
     public int getId() {
         return id;
