@@ -54,7 +54,7 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void goToCameraPage()
+    public void goToContactPage()
     {
         click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
     }

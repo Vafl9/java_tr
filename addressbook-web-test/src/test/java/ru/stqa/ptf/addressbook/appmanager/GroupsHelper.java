@@ -39,11 +39,25 @@ public class GroupsHelper extends HelperBase {
         return isElementPresent(By.xpath(".//*[@name='selected[]']"));
     }
 
-    public void createGroup(GroupDate groupDate) {
+    public void create(GroupDate groupDate) {
         InitGroupCreation();
         fillGroupForm(groupDate);
         submitGroupCreation();
         returnToGroupPage();
+    }
+
+    public void modify(int index, GroupDate group) {
+        selectGroup(index);
+        initGroupModification();
+        fillGroupForm(group);
+        submitGroupModification();
+        returnToGroupPage();
+    }
+
+    public void delete(int size) {
+       selectGroup(size);
+       deleteCreationGroup();
+       returnToGroupPage();
     }
 
     public void deleteCreationGroup() {
@@ -66,15 +80,14 @@ public class GroupsHelper extends HelperBase {
         return wd.findElements(By.xpath(".//*[@name='selected[]']")).size();
     }
 
-    public List<GroupDate> getGroupList() {
+    public List<GroupDate> list() {
         List<GroupDate> groups = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements)
         {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String name = element.getText();
-            GroupDate groupDate = new GroupDate(name, null, null, id);
-            groups.add(groupDate);
+            groups.add(new GroupDate().withName(name).withId(id));
         }
 
          return groups;

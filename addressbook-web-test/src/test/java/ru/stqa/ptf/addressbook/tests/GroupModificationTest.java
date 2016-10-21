@@ -1,44 +1,47 @@
 package ru.stqa.ptf.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.GroupDate;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupModificationTest extends TestBase {
 
-    @Test
-    public void TestGroupModification(){
-        app.getNavigationHelper().gotoGroupPage();
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.goTo().gotoGroupPage();
 
-        if(! app.getGroupsHelper().isThereAGroup())
-        {
-            app.getGroupsHelper().createGroup(new GroupDate("Test1", "Test1", "Test1"));
+        if (app.group().list().size() == 0) {
+            app.group().create(new GroupDate().withName("Test1").withHeader("Test").withFooter("Test"));
         }
-        List<GroupDate> before = app.getGroupsHelper().getGroupList();
-        app.getGroupsHelper().selectGroup(before.size() - 1);
-        app.getGroupsHelper().initGroupModification();
-        GroupDate group = new GroupDate("New_Test1", "Test1", "Test1", before.get(before.size() - 1).getId());
-        app.getGroupsHelper().fillGroupForm(group);
-        app.getGroupsHelper().submitGroupModification();
-        app.getGroupsHelper().returnToGroupPage();
-        List<GroupDate> after = app.getGroupsHelper().getGroupList();
+    }
+
+
+    @Test
+    public void TestGroupModification() {
+        List<GroupDate> before = app.group().list();
+        int index = before.size() - 1;
+        GroupDate group = new GroupDate()
+                .withName("Test1").withHeader("Test").withFooter("Test").withId(before.get(index).getId());
+        app.group().modify(index, group);
+        List<GroupDate> after = app.group().list();
         Assert.assertEquals(after.size(), before.size());
 
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(group);
 
-        Comparator<? super GroupDate> byId = (g1,g2) -> Integer.compare(g1.getId(),g2.getId());
+        Comparator<? super GroupDate> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
         after.sort(byId);
 
-        Assert.assertEquals(before,after);
+        Assert.assertEquals(before, after);
 
 
     }
+
+
 }

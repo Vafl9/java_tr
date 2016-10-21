@@ -12,18 +12,18 @@ public class ContactModificationTest extends TestBase {
     @Test
     public void ContactModificationTest(){
 
-        if(!app.getContactHelper().isThereAContact())
+        if(!app.Contact().isThereAContact())
         {
-            app.getContactHelper().createNewContact(new ContactDate("Andrew", "Dzhodzhua", "Head@mail.ru","Test1"),true);
+            app.Contact().createNewContact(new ContactDate("Andrew", "Dzhodzhua", "Head@mail.ru","Test1"),true);
         }
-        List<ContactDate> before = app.getContactHelper().getContactList();
-        app.getContactHelper().editContact(before.size()+1);
+        List<ContactDate> before = app.Contact().getContactList();
+        app.Contact().editContact(before.size()+1);
         System.out.println(before.size());
         ContactDate contact = new ContactDate("Dzhodzhua", "Dzhodzhua", "head@mail.ru",null, before.get(before.size()-1).getId());
-        app.getContactHelper().fillFormContact(contact,false);
-        app.getContactHelper().submitUpdateContact();
-        app.getContactHelper().goToCameraPage();
-        List<ContactDate> after = app.getContactHelper().getContactList();
+        app.Contact().fillFormContact(contact,false);
+        app.Contact().submitUpdateContact();
+        app.Contact().goToContactPage();
+        List<ContactDate> after = app.Contact().getContactList();
         Assert.assertEquals(after.size(), before.size());
 
         before.remove(before.size()-1);

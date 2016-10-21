@@ -10,14 +10,14 @@ public class ContactDeletionTest extends TestBase {
 
     @Test
     public void ContactDeletionTest(){
-        if(!app.getContactHelper().isThereAContact())
+        if(!app.Contact().isThereAContact())
         {
-            app.getContactHelper().createNewContact(new ContactDate("Andrew", "Dzhodzhua", "Head@mail.ru","Test1"),true);
+            app.Contact().createNewContact(new ContactDate("Andrew", "Dzhodzhua", "Head@mail.ru","Test1"),true);
         }
-        List<ContactDate> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size()-1);
-        app.getContactHelper().deleteUser();
-        List<ContactDate> after = app.getContactHelper().getContactList();
+        List<ContactDate> before = app.Contact().getContactList();
+        app.Contact().selectContact(before.size()-1);
+        app.Contact().deleteUser();
+        List<ContactDate> after = app.Contact().getContactList();
         Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(before.size()-1);
