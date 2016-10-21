@@ -80,6 +80,10 @@ public class GroupsHelper extends HelperBase {
         click(By.xpath(".//*[@id='content']/form/input[3]"));
     }
 
+    public int getGroupCount() {
+        return wd.findElements(By.xpath(".//*[@name='selected[]']")).size();
+    }
+
     private  Groups groupCache = null;
 
     public Groups all() {

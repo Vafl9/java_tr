@@ -88,7 +88,10 @@ public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
 
-
+    public int getContactCount()
+    {
+        return wd.findElements(By.xpath(".//td[@class='center']/*[@name ='selected[]']")).size();
+    }
 
     public Contacts all() {
 
