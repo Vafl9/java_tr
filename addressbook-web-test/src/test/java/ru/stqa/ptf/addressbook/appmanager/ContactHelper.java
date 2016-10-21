@@ -47,8 +47,7 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void selectContactById(String path) {
-        System.out.println(path);
+    public void modifyContactByXPath(String path) {
         wd.findElement(By.xpath(path)).click();
     }
 
@@ -59,7 +58,7 @@ public class ContactHelper extends HelperBase {
 
 
     public void modify(ContactDate contact) {
-        selectContactById(contact.getEditButtonXPath());
+        modifyContactByXPath(contact.getEditButtonXPath());
         fillFormContact(contact,false);
         submitUpdateContact();
         returnToContactPage();
