@@ -3,6 +3,8 @@ package ru.stqa.ptf.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.GroupDate;
@@ -55,6 +57,8 @@ public class GroupCreationTest extends TestBase {
             return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
     }
+
+
 
     @Test(dataProvider = "validGroupsXML")
     public void groupCreationTest(GroupDate group) {
