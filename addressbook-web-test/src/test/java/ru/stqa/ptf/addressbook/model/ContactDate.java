@@ -1,8 +1,14 @@
 package ru.stqa.ptf.addressbook.model;
 
-import java.io.File;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import java.io.File;
+@XStreamAlias("contact")
 public class ContactDate {
+    @XStreamOmitField
+    private int id = Integer.MAX_VALUE;
+
     private String name;
     private String lastName;
     private String group;
@@ -130,8 +136,6 @@ public class ContactDate {
         this.allMail = allMail;
         return this;
     }
-
-    private int id = Integer.MAX_VALUE;
 
     public String getName() {
         return name;
