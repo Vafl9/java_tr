@@ -61,7 +61,7 @@ public class ContactCreationTest extends TestBase {
     public void testContactCreationTest(ContactData contact) {
         Groups allGroup = app.db().groups();
         allGroup.iterator().next();
-        contact.inGroup(allGroup);
+        contact.inGroup(allGroup.iterator().next());
         app.goTo().contactPage();
         Contacts before = app.db().contacts();
         app.contact().createNewContact(contact, true);
