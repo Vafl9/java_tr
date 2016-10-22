@@ -6,7 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
-import ru.stqa.ptf.addressbook.model.ContactDate;
+import ru.stqa.ptf.addressbook.model.ContactData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -43,7 +43,7 @@ public class ContactDateGenerator {
     }
 
     private void run() throws IOException {
-        List<ContactDate> contact = generateContacts(count);
+        List<ContactData> contact = generateContacts(count);
 
 
         if (format.equals("csv")) {
@@ -55,7 +55,7 @@ public class ContactDateGenerator {
         } else System.out.println("Error format");
     }
 
-    private void saveAsJSON(List<ContactDate> contact, File file) throws IOException {
+    private void saveAsJSON(List<ContactData> contact, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contact);
         try(Writer writer = new FileWriter(file))
@@ -67,9 +67,9 @@ public class ContactDateGenerator {
 
     }
 
-    private void saveAsXML(List<ContactDate> contact, File file) throws IOException {
+    private void saveAsXML(List<ContactData> contact, File file) throws IOException {
         XStream xStream = new XStream();
-        xStream.processAnnotations(ContactDate.class);
+        xStream.processAnnotations(ContactData.class);
         String xml = xStream.toXML(contact);
         try(Writer writer = new FileWriter(file))
         {
@@ -77,19 +77,19 @@ public class ContactDateGenerator {
         }
     }
 
-    private void saveAsCSV(List<ContactDate> contacts, File file) throws IOException {
+    private void saveAsCSV(List<ContactData> contacts, File file) throws IOException {
         try(Writer writer = new FileWriter(file)) {
-            for (ContactDate contact : contacts) {
+            for (ContactData contact : contacts) {
                 writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getLastName(), contact.getEmail()));
             }
         }
     }
 
-    private List<ContactDate> generateContacts(int count) {
+    private List<ContactData> generateContacts(int count) {
         //File photo = new File("src/test/resources/stru.png");
-        List<ContactDate> contacts = new ArrayList<>();
+        List<ContactData> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactDate().withName(String.format("Andrew %s", i)).withLastName(String.format("Dzhodzhua %s", i)).withEmail(String.format("Head@mail.ru %s", i)));
+            contacts.add(new ContactData().withName(String.format("Andrew %s", i)).withLastName(String.format("Dzhodzhua %s", i)).withEmail(String.format("Head@mail.ru %s", i)));
         }
         return contacts;
     }

@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class Contacts extends ForwardingSet<ContactDate> {
+public class Contacts extends ForwardingSet<ContactData> {
 
-    private Set<ContactDate> delegate;
+    private Set<ContactData> delegate;
 
     @Override
-    protected Set<ContactDate> delegate() {
+    protected Set<ContactData> delegate() {
         return delegate;
     }
 
@@ -19,11 +19,11 @@ public class Contacts extends ForwardingSet<ContactDate> {
 
 
     public Contacts(Contacts groups) {
-        this.delegate = new HashSet<ContactDate>(groups.delegate());
+        this.delegate = new HashSet<ContactData>(groups.delegate());
     }
 
 
-    public Contacts withAdded(ContactDate contact)
+    public Contacts withAdded(ContactData contact)
     {
         Contacts contacts = new Contacts(this);
         contacts.add(contact);
@@ -36,7 +36,7 @@ public class Contacts extends ForwardingSet<ContactDate> {
     }
 
 
-    public Contacts withOut(ContactDate contact)
+    public Contacts withOut(ContactData contact)
     {
         Contacts contacts = new Contacts(this);
         contacts.remove(contact);

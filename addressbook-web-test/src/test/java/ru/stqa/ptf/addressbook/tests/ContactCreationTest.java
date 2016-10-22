@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.stqa.ptf.addressbook.model.ContactDate;
+import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
 
 import java.io.BufferedReader;
@@ -33,7 +33,7 @@ public class ContactCreationTest extends TestBase {
                 line = reader.readLine();
             }
             Gson gson = new Gson();
-            List<ContactDate> contacts = gson.fromJson(json, new TypeToken<List<ContactDate>>() {
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
             }.getType());
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
@@ -50,14 +50,14 @@ public class ContactCreationTest extends TestBase {
                 line = reader.readLine();
             }
             XStream xsteam = new XStream();
-            xsteam.processAnnotations(ContactDate.class);
-            List<ContactDate> contacts = (List<ContactDate>) xsteam.fromXML(xml);
+            xsteam.processAnnotations(ContactData.class);
+            List<ContactData> contacts = (List<ContactData>) xsteam.fromXML(xml);
             return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
     }
 
     @Test(dataProvider = "validContactsXML")
-    public void ContactCreationTest(ContactDate contact) {
+    public void ContactCreationTest(ContactData contact) {
         app.goTo().contactPage();
         Contacts before = app.contact().all();
         app.contact().createNewContact(contact, true);

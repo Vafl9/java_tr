@@ -4,10 +4,20 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 @XStreamAlias("contact")
-public class ContactDate {
+
+@Entity
+@Table(name = "addressbook")
+
+public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column (name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
     private String name;
@@ -42,7 +52,7 @@ public class ContactDate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ContactDate that = (ContactDate) o;
+        ContactData that = (ContactData) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -60,28 +70,28 @@ public class ContactDate {
 
     @Override
     public String toString() {
-        return "ContactDate{" +
+        return "ContactData{" +
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
 
-    public ContactDate withId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
         return this;
     }
 
-    public ContactDate withName(String name) {
+    public ContactData withName(String name) {
         this.name = name;
         return this;
     }
 
-    public ContactDate withLastName(String lastName) {
+    public ContactData withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public ContactDate withGroup(String group) {
+    public ContactData withGroup(String group) {
         this.group = group;
         return this;
     }
@@ -98,17 +108,17 @@ public class ContactDate {
         return work;
     }
 
-    public ContactDate withHome(String home) {
+    public ContactData withHome(String home) {
         this.home = home;
         return this;
     }
 
-    public ContactDate withMobile(String mobile) {
+    public ContactData withMobile(String mobile) {
         this.mobile = mobile;
         return this;
     }
 
-    public ContactDate withWork(String work) {
+    public ContactData withWork(String work) {
         this.work = work;
         return this;
     }
@@ -117,12 +127,12 @@ public class ContactDate {
         return allPhones;
     }
 
-    public ContactDate withAllPhones(String allPhones) {
+    public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
         return this;
     }
 
-    public ContactDate withEmail(String email) {
+    public ContactData withEmail(String email) {
         this.email = email;
         return this;
     }
@@ -136,7 +146,7 @@ public class ContactDate {
         return secondEmail;
     }
 
-    public ContactDate withSecondEmail(String secondEmail) {
+    public ContactData withSecondEmail(String secondEmail) {
         this.secondEmail = secondEmail;
         return this;
     }
@@ -145,7 +155,7 @@ public class ContactDate {
         return allMail;
     }
 
-    public ContactDate withAllMail(String allMail) {
+    public ContactData withAllMail(String allMail) {
         this.allMail = allMail;
         return this;
     }
@@ -171,7 +181,7 @@ public class ContactDate {
         return address;
     }
 
-    public ContactDate withAddress(String address) {
+    public ContactData withAddress(String address) {
         this.address = address;
         return this;
     }
@@ -181,7 +191,7 @@ public class ContactDate {
         return allContactInformation;
     }
 
-    public ContactDate withAllContactInformation(String allContactInformation) {
+    public ContactData withAllContactInformation(String allContactInformation) {
         this.allContactInformation = allContactInformation;
         return this;
     }
@@ -190,7 +200,7 @@ public class ContactDate {
         return photo;
     }
 
-    public ContactDate withPhoto(File photo) {
+    public ContactData withPhoto(File photo) {
         this.photo = photo;
         return this;
     }

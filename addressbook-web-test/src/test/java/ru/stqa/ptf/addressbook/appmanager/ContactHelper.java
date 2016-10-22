@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import ru.stqa.ptf.addressbook.model.ContactDate;
+import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath(".//*[@id='nav']/ul/li[2]/a"));
     }
 
-    public void fillFormContact(ContactDate contactData, boolean creation) {
+    public void fillFormContact(ContactData contactData, boolean creation) {
 
         type(By.name("firstname"), contactData.getName());
         type(By.name("lastname"), contactData.getLastName());
@@ -42,7 +42,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void delete(ContactDate contact) {
+    public void delete(ContactData contact) {
         selectContact(contact.getId());
         wd.findElement(By.xpath(".//*[@id='content']/form[2]/div[2]/input")).click();
         wd.switchTo().alert().accept();
@@ -56,7 +56,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void modify(ContactDate contact) {
+    public void modify(ContactData contact) {
         selectModifyContactById(contact.getId());
         fillFormContact(contact, false);
         submitUpdateContact();
@@ -73,7 +73,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath(String.format(".//*[@id='%s']", i))).click();
     }
 
-    public void createNewContact(ContactDate contactData, boolean b) {
+    public void createNewContact(ContactData contactData, boolean b) {
         createContact();
         fillFormContact(contactData, b);
         submitCreation();
@@ -128,7 +128,7 @@ public class ContactHelper extends HelperBase {
 
             String allInformation = name + lastName + address + allPhones + allMail;
 
-            contactCache.add(new ContactDate().withName(name).withLastName(lastName).withId(id).withAllPhones(allPhones).withAllMail(allMail).withAddress(address).withAllContactInformation(allInformation));
+            contactCache.add(new ContactData().withName(name).withLastName(lastName).withId(id).withAllPhones(allPhones).withAllMail(allMail).withAddress(address).withAllContactInformation(allInformation));
 
             index++;
         }
@@ -138,7 +138,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public ContactDate infoFromEditForm(ContactDate contact) {
+    public ContactData infoFromEditForm(ContactData contact) {
         selectModifyContactById(contact.getId());
         String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
@@ -150,15 +150,15 @@ public class ContactHelper extends HelperBase {
         String address = wd.findElement(By.name("address")).getAttribute("value");
 
         wd.navigate().back();
-        return new ContactDate().withId(contact.getId()).withName(firstName).withLastName(lastName).
+        return new ContactData().withId(contact.getId()).withName(firstName).withLastName(lastName).
                 withHome(home).withMobile(mobile).withWork(work).withEmail(email).withSecondEmail(secondEmail).withAddress(address);
 
     }
 
-    public ContactDate infoFromInformationForm(ContactDate contact) {
+    public ContactData infoFromInformationForm(ContactData contact) {
         selectInformationContactById(contact.getId());
         String contactInformation = wd.findElement(By.cssSelector("#content")).getText();
         wd.navigate().back();
-        return new ContactDate().withAllContactInformation(contactInformation);
+        return new ContactData().withAllContactInformation(contactInformation);
     }
 }

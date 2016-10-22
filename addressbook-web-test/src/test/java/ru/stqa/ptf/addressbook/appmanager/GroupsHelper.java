@@ -3,14 +3,10 @@ package ru.stqa.ptf.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import ru.stqa.ptf.addressbook.model.GroupDate;
+import ru.stqa.ptf.addressbook.model.GroupData;
 import ru.stqa.ptf.addressbook.model.Groups;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupsHelper extends HelperBase {
 
@@ -27,10 +23,10 @@ public class GroupsHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void fillGroupForm(GroupDate groupDate) {
-        type(By.name("group_name"), groupDate.getName());
-        type(By.name("group_header"), groupDate.getHeader());
-        type(By.name("group_footer"), groupDate.getFooter());
+    public void fillGroupForm(GroupData groupData) {
+        type(By.name("group_name"), groupData.getName());
+        type(By.name("group_header"), groupData.getHeader());
+        type(By.name("group_footer"), groupData.getFooter());
 
     }
 
@@ -39,15 +35,15 @@ public class GroupsHelper extends HelperBase {
     }
 
 
-    public void create(GroupDate groupDate) {
+    public void create(GroupData groupData) {
         InitGroupCreation();
-        fillGroupForm(groupDate);
+        fillGroupForm(groupData);
         submitGroupCreation();
         groupCache = null;
         returnToGroupPage();
     }
 
-    public void modify(GroupDate group) {
+    public void modify(GroupData group) {
         selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
@@ -57,7 +53,7 @@ public class GroupsHelper extends HelperBase {
     }
 
 
-    public void delete(GroupDate deletedGroup) {
+    public void delete(GroupData deletedGroup) {
         selectGroupById(deletedGroup.getId());
         deleteCreationGroup();
         groupCache = null;
@@ -97,7 +93,7 @@ public class GroupsHelper extends HelperBase {
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String name = element.getText();
-            groupCache.add(new GroupDate().withName(name).withId(id));
+            groupCache.add(new GroupData().withName(name).withId(id));
         }
 
         return new Groups(groupCache);

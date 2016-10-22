@@ -1,7 +1,7 @@
 package ru.stqa.ptf.addressbook.tests;
 
 import org.testng.annotations.Test;
-import ru.stqa.ptf.addressbook.model.GroupDate;
+import ru.stqa.ptf.addressbook.model.GroupData;
 import ru.stqa.ptf.addressbook.model.Groups;
 
 import java.sql.*;
@@ -20,7 +20,7 @@ public class DBconnectionTest {
             Groups group =  new Groups();
             while (resultSet.next())
             {
-                group.add(new GroupDate().withName(resultSet.getString("group_name")).withId(resultSet.getInt("group_id")));
+                group.add(new GroupData().withName(resultSet.getString("group_name")).withId(resultSet.getInt("group_id")));
             }
             resultSet.close();
             st.close();

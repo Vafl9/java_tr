@@ -4,16 +4,36 @@ package ru.stqa.ptf.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @XStreamAlias("group")
-public class GroupDate {
+
+@Entity
+@Table (name = "group_list")
+
+public class GroupData {
     @XStreamOmitField
+    @Id
+    @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
+    @Column (name = "group_name")
     private String name;
+
     @Expose
+    @Column (name = "group_header")
+    @Type(type = "text")
     private String header;
+
     @Expose
+    @Column (name = "group_footer")
+    @Type(type = "text")
     private String footer;
 
 
@@ -25,10 +45,10 @@ public class GroupDate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupDate groupDate = (GroupDate) o;
+        GroupData groupData = (GroupData) o;
 
-        if (id != groupDate.id) return false;
-        return name != null ? name.equals(groupDate.name) : groupDate.name == null;
+        if (id != groupData.id) return false;
+        return name != null ? name.equals(groupData.name) : groupData.name == null;
 
     }
 
@@ -53,7 +73,7 @@ public class GroupDate {
 
     @Override
     public String toString() {
-        return "GroupDate{" +
+        return "GroupData{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 '}';
@@ -63,22 +83,22 @@ public class GroupDate {
         return id;
     }
 
-    public GroupDate withId(int id) {
+    public GroupData withId(int id) {
         this.id = id;
         return this;
     }
 
-    public GroupDate withName(String name) {
+    public GroupData withName(String name) {
         this.name = name;
         return this;
     }
 
-    public GroupDate withHeader(String header) {
+    public GroupData withHeader(String header) {
         this.header = header;
         return this;
     }
 
-    public GroupDate withFooter(String footer) {
+    public GroupData withFooter(String footer) {
         this.footer = footer;
         return this;
     }

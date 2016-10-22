@@ -6,7 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
-import ru.stqa.ptf.addressbook.model.GroupDate;
+import ru.stqa.ptf.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -43,7 +43,7 @@ public class GroupDateGenerator {
     }
 
     private void run() throws IOException {
-        List<GroupDate> group = generateGroups(count);
+        List<GroupData> group = generateGroups(count);
 
         if (format.equals("csv")) {
             saveAsCSV(group, new File(file));
@@ -55,7 +55,7 @@ public class GroupDateGenerator {
 
     }
 
-    private void saveAsJSON(List<GroupDate> group, File file) throws IOException {
+    private void saveAsJSON(List<GroupData> group, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(group);
         try(Writer writer = new FileWriter(file))
@@ -64,9 +64,9 @@ public class GroupDateGenerator {
         }
     }
 
-    private void saveAsXML(List<GroupDate> group, File file) throws IOException {
+    private void saveAsXML(List<GroupData> group, File file) throws IOException {
         XStream xStream = new XStream();
-        xStream.processAnnotations(GroupDate.class);
+        xStream.processAnnotations(GroupData.class);
         String xml = xStream.toXML(group);
         try(Writer writer = new FileWriter(file))
         {
@@ -74,18 +74,18 @@ public class GroupDateGenerator {
         }
     }
 
-    private void saveAsCSV(List<GroupDate> groups, File file) throws IOException {
+    private void saveAsCSV(List<GroupData> groups, File file) throws IOException {
         try(Writer writer = new FileWriter(file)) {
-            for (GroupDate group : groups) {
+            for (GroupData group : groups) {
                 writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
             }
         }
     }
 
-    private List<GroupDate> generateGroups(int count) {
-        List<GroupDate> groups = new ArrayList<>();
+    private List<GroupData> generateGroups(int count) {
+        List<GroupData> groups = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            groups.add(new GroupDate().withName(String.format("test1 %s", i)).withHeader(String.format("test2 %s", i)).withFooter(String.format("test3 %s", i)));
+            groups.add(new GroupData().withName(String.format("test1 %s", i)).withHeader(String.format("test2 %s", i)).withFooter(String.format("test3 %s", i)));
         }
         return groups;
     }
