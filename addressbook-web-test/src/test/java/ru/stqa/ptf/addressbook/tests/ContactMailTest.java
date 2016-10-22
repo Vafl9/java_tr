@@ -4,6 +4,7 @@ import org.hamcrest.CoreMatchers;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.ContactData;
+import ru.stqa.ptf.addressbook.model.Groups;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
