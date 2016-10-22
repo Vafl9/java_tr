@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
+import ru.stqa.ptf.addressbook.model.GroupData;
+import ru.stqa.ptf.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -29,10 +31,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("work"), contactData.getWorkPhone());
         //attach(By.name("photo"), contactData.getPhoto());
 
-
         if (creation) {
-            if(contactData.getGroup() != null) {
-                SelectByText(By.xpath(".//*[@id='content']/form/select[5]"), contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                SelectByText(By.xpath(".//*[@id='content']/form/select[5]"), contactData.getGroups().iterator().next().getName());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.xpath(".//*[@id='content']/form/select[5]")));

@@ -3,10 +3,14 @@ package ru.stqa.ptf.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
 @XStreamAlias("contact")
 
 @Entity
@@ -37,34 +41,34 @@ public class ContactData {
     @XStreamOmitField
     @Id
 
-    @Column (name = "id")
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
 
     @Expose
-    @Column (name = "firstname")
+    @Column(name = "firstname")
     private String name;
 
     @Expose
-    @Column (name = "lastname")
+    @Column(name = "lastname")
     private String lastName;
 
     @Expose
-    @Column (name = "photo")
+    @Column(name = "photo")
     @Type(type = "text")
     private String photo;
 
     @Expose
-    @Column (name = "home")
+    @Column(name = "home")
     @Type(type = "text")
     private String home;
 
     @Expose
-    @Column (name = "mobile")
+    @Column(name = "mobile")
     @Type(type = "text")
     private String mobile;
 
     @Expose
-    @Column (name = "work")
+    @Column(name = "work")
     @Type(type = "text")
     private String work;
 
@@ -74,11 +78,13 @@ public class ContactData {
     @Transient
     private String allContactInformation;
 
+
     @Transient
     private String address;
 
-    @Transient
-    private String group;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Transient
     private String allPhones;
@@ -90,12 +96,17 @@ public class ContactData {
     private String secondEmail;
 
 
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
     @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+
                 '}';
     }
 
@@ -111,11 +122,6 @@ public class ContactData {
 
     public ContactData withLastName(String lastName) {
         this.lastName = lastName;
-        return this;
-    }
-
-    public ContactData withGroup(String group) {
-        this.group = group;
         return this;
     }
 
@@ -191,14 +197,10 @@ public class ContactData {
         return lastName;
     }
 
-    public String getGroup() {
-        return group;
-    }
 
     public int getId() {
         return id;
     }
-
 
     public String getAddress() {
         return address;
@@ -220,11 +222,16 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return  new File(photo);
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
+        return this;
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
         return this;
     }
 }

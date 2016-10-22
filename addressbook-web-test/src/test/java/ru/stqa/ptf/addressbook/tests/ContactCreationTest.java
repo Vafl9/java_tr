@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
+import ru.stqa.ptf.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,7 +58,8 @@ public class ContactCreationTest extends TestBase {
     }
 
     @Test(dataProvider = "validContactsXML")
-    public void ContactCreationTest(ContactData contact) {
+    public void testContactCreationTest(ContactData contact) {
+        Groups groups = app.db().groups();
         app.goTo().contactPage();
         Contacts before = app.db().contacts();
         app.contact().createNewContact(contact, true);
