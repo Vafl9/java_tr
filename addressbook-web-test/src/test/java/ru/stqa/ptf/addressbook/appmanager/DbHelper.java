@@ -29,11 +29,11 @@ public class DbHelper {
             Session session = sessionFactory.openSession();
             session.beginTransaction();
             List<GroupData> result = session.createQuery("from GroupData").list();
+            session.getTransaction().commit();
+            session.close();
             for (GroupData group : result) {
                 System.out.println(group);
             }
-            session.getTransaction().commit();
-            session.close();
             return new Groups(result);
         }
 
@@ -42,11 +42,11 @@ public class DbHelper {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> result = session.createQuery("from ContactData WHERE deprecated = 0000-00-00").list();
+        session.getTransaction().commit();
+        session.close();
         for (ContactData contact : result) {
             System.out.println(contact);
         }
-        session.getTransaction().commit();
-        session.close();
         return new Contacts(result);
     }
 
