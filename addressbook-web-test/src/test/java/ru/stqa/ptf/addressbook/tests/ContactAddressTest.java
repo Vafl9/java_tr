@@ -12,7 +12,7 @@ public class ContactAddressTest extends TestBase {
     @BeforeMethod
     public void ensurePrecondition() {
         app.goTo().contactPage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             app.contact().createNewContact(new ContactData().withName("Andrew").withLastName("Dzhodzhua").withEmail("Head@mail.ru").withGroup("Test1"), true);
         }
     }
