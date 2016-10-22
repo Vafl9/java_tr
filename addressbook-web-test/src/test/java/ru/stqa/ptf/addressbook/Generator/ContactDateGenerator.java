@@ -3,6 +3,8 @@ package ru.stqa.ptf.addressbook.Generator;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.ptf.addressbook.model.ContactDate;
 
@@ -48,9 +50,17 @@ public class ContactDateGenerator {
             saveAsCSV(contact, new File(file));
         } else if (format.equals("xml")) {
             saveAsXML(contact, new File(file));
-        } else {
-            System.out.println("Error format");
-        }
+        } else if (format.equals("json")) {
+            saveAsJSON(contact, new File(file));
+        } else System.out.println("Error format");
+    }
+
+    private void saveAsJSON(List<ContactDate> contact, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(contact);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
     }
 
     private void saveAsXML(List<ContactDate> contact, File file) throws IOException {
@@ -69,11 +79,12 @@ public class ContactDateGenerator {
         }
         writer.close();
     }
+
     private List<ContactDate> generateContacts(int count) {
-        File photo = new File("src/test/resources/stru.png");
+        //File photo = new File("src/test/resources/stru.png");
         List<ContactDate> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactDate().withName(String.format("Andrew %s", i)).withLastName(String.format("Dzhodzhua %s", i)).withEmail(String.format("Head@mail.ru %s", i)).withPhoto(photo));
+            contacts.add(new ContactDate().withName(String.format("Andrew %s", i)).withLastName(String.format("Dzhodzhua %s", i)).withEmail(String.format("Head@mail.ru %s", i)));
         }
         return contacts;
     }
