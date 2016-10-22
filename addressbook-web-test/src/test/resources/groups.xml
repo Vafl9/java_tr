@@ -14,39 +14,4 @@
     <header>test2 2</header>
     <footer>test3 2</footer>
   </group>
-  <group>
-    <name>test1 3</name>
-    <header>test2 3</header>
-    <footer>test3 3</footer>
-  </group>
-  <group>
-    <name>test1 4</name>
-    <header>test2 4</header>
-    <footer>test3 4</footer>
-  </group>
-  <group>
-    <name>test1 5</name>
-    <header>test2 5</header>
-    <footer>test3 5</footer>
-  </group>
-  <group>
-    <name>test1 6</name>
-    <header>test2 6</header>
-    <footer>test3 6</footer>
-  </group>
-  <group>
-    <name>test1 7</name>
-    <header>test2 7</header>
-    <footer>test3 7</footer>
-  </group>
-  <group>
-    <name>test1 8</name>
-    <header>test2 8</header>
-    <footer>test3 8</footer>
-  </group>
-  <group>
-    <name>test1 9</name>
-    <header>test2 9</header>
-    <footer>test3 9</footer>
-  </group>
 </list>

@@ -58,26 +58,28 @@ public class GroupDateGenerator {
     private void saveAsJSON(List<GroupDate> group, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(group);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try(Writer writer = new FileWriter(file))
+        {
+            writer.write(json);
+        }
     }
 
     private void saveAsXML(List<GroupDate> group, File file) throws IOException {
         XStream xStream = new XStream();
         xStream.processAnnotations(GroupDate.class);
         String xml = xStream.toXML(group);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try(Writer writer = new FileWriter(file))
+        {
+            writer.write(xml);
+        }
     }
 
     private void saveAsCSV(List<GroupDate> groups, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (GroupDate group : groups) {
-            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+        try(Writer writer = new FileWriter(file)) {
+            for (GroupDate group : groups) {
+                writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+            }
         }
-        writer.close();
     }
 
     private List<GroupDate> generateGroups(int count) {

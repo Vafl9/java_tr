@@ -24,36 +24,39 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsJSON() throws IOException {
-        String json = "";
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
-        String line = reader.readLine();
-        while (line != null) {
-            json += line;
-            line = reader.readLine();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+            String json = "";
+            String line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
+            Gson gson = new Gson();
+            List<ContactDate> contacts = gson.fromJson(json, new TypeToken<List<ContactDate>>() {
+            }.getType());
+            return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<ContactDate> contacts = gson.fromJson(json, new TypeToken<List<ContactDate>>() {
-        }.getType());
-        return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
 
     @DataProvider
     public Iterator<Object[]> validContactsXML() throws IOException {
-        String xml = "";
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
-        String line = reader.readLine();
-        while (line != null) {
-            xml += line;
-            line = reader.readLine();
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))) {
+            String xml = "";
+            String line = reader.readLine();
+            while (line != null) {
+                xml += line;
+                line = reader.readLine();
+            }
+            XStream xsteam = new XStream();
+            xsteam.processAnnotations(ContactDate.class);
+            List<ContactDate> contacts = (List<ContactDate>) xsteam.fromXML(xml);
+            return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        XStream xsteam = new XStream();
-        xsteam.processAnnotations(ContactDate.class);
-        List<ContactDate> contacts = (List<ContactDate>) xsteam.fromXML(xml);
-        return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
-    @Test(dataProvider = "validContactsJSON")
+    @Test(dataProvider = "validContactsXML")
     public void ContactCreationTest(ContactDate contact) {
         app.goTo().contactPage();
         Contacts before = app.contact().all();

@@ -22,38 +22,41 @@ public class GroupCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroupsJSON() throws IOException {
-        String json = "";
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));
-        String line = reader.readLine();
-        while (line != null)
-        {
-            json += line;
-            line = reader.readLine();
-        }
-        Gson gson = new Gson();
-        List<GroupDate> groups = gson.fromJson(json,new TypeToken<List<GroupDate>>(){}.getType());
 
-        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));) {
+            String json = "";
+            String line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
+            Gson gson = new Gson();
+            List<GroupDate> groups = gson.fromJson(json, new TypeToken<List<GroupDate>>() {
+            }.getType());
+
+            return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+        }
     }
 
 
     @DataProvider
     public Iterator<Object[]> validGroupsXML() throws IOException {
-        String xml = "";
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
-        String line = reader.readLine();
-        while (line != null)
-        {
-            xml += line;
-            line = reader.readLine();
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))) {
+            String xml = "";
+            String line = reader.readLine();
+            while (line != null) {
+                xml += line;
+                line = reader.readLine();
+            }
+            XStream xsteam = new XStream();
+            xsteam.processAnnotations(GroupDate.class);
+            List<GroupDate> groups = (List<GroupDate>) xsteam.fromXML(xml);
+            return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        XStream xsteam = new XStream();
-        xsteam.processAnnotations(GroupDate.class);
-        List<GroupDate> groups = (List<GroupDate>) xsteam.fromXML(xml);
-        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
-    @Test(dataProvider = "validGroupsJSON")
+    @Test(dataProvider = "validGroupsXML")
     public void groupCreationTest(GroupDate group) {
         app.goTo().groupPage();
         Groups before = app.group().all();
@@ -63,7 +66,7 @@ public class GroupCreationTest extends TestBase {
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
-    @Test
+    @Test (enabled = false)
     public void groupBadCreationTest() {
         app.goTo().groupPage();
         Groups before = app.group().all();

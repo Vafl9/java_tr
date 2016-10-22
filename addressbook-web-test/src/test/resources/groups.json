@@ -13,40 +13,5 @@
     "name": "test1 2",
     "header": "test2 2",
     "footer": "test3 2"
-  },
-  {
-    "name": "test1 3",
-    "header": "test2 3",
-    "footer": "test3 3"
-  },
-  {
-    "name": "test1 4",
-    "header": "test2 4",
-    "footer": "test3 4"
-  },
-  {
-    "name": "test1 5",
-    "header": "test2 5",
-    "footer": "test3 5"
-  },
-  {
-    "name": "test1 6",
-    "header": "test2 6",
-    "footer": "test3 6"
-  },
-  {
-    "name": "test1 7",
-    "header": "test2 7",
-    "footer": "test3 7"
-  },
-  {
-    "name": "test1 8",
-    "header": "test2 8",
-    "footer": "test3 8"
-  },
-  {
-    "name": "test1 9",
-    "header": "test2 9",
-    "footer": "test3 9"
   }
 ]

@@ -6,12 +6,27 @@ repositories
             mavenCentral()
         }
 
-dependencies{
+dependencies {
     compile 'org.testng:testng:6.9.13.6'
     compile 'org.seleniumhq.selenium:selenium-java:3.0.0-beta4'
     compile 'org.hamcrest:hamcrest-junit:2.0.0.0'
     compile 'com.beust:jcommander:1.58'
     compile 'com.thoughtworks.xstream:xstream:1.4.9'
     compile 'com.solidfire.code.gson:gson:2.6.2'
+}
+
+task testGroups(type: Test) {
+    useTestNG()
+            {
+                suites 'src/test/resources/testng-groups.xml'
+            }
+}
+
+
+task testContacts(type: Test) {
+    useTestNG()
+            {
+                suites 'src/test/resources/testng-contacts.xml'
+            }
 }
 
