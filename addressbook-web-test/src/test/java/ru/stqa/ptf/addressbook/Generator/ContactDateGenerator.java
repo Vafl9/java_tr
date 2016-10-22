@@ -89,7 +89,7 @@ public class ContactDateGenerator {
         //File photo = new File("src/test/resources/stru.png");
         List<ContactData> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withName(String.format("Andrew %s", i)).withLastName(String.format("Dzhodzhua %s", i)).withEmail(String.format("Head@mail.ru %s", i)));
+            contacts.add(new ContactData().withName(String.format("Andrew %s", i)).withLastName(String.format("Dzhodzhua %s", i)).withEmail(String.format("Head@mail.ru %s", i)).withHome("111").withMobile("222").withWork("333"));
         }
         return contacts;
     }

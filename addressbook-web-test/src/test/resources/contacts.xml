@@ -2,16 +2,25 @@
   <contact>
     <name>Andrew 0</name>
     <lastName>Dzhodzhua 0</lastName>
+    <home>111</home>
+    <mobile>222</mobile>
+    <work>333</work>
     <email>Head@mail.ru 0</email>
   </contact>
   <contact>
     <name>Andrew 1</name>
     <lastName>Dzhodzhua 1</lastName>
+    <home>111</home>
+    <mobile>222</mobile>
+    <work>333</work>
     <email>Head@mail.ru 1</email>
   </contact>
   <contact>
     <name>Andrew 2</name>
     <lastName>Dzhodzhua 2</lastName>
+    <home>111</home>
+    <mobile>222</mobile>
+    <work>333</work>
     <email>Head@mail.ru 2</email>
   </contact>
 </list>
