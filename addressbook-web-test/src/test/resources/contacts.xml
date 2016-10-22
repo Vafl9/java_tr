@@ -1,0 +1,62 @@
+<list>
+  <contact>
+    <name>Andrew 0</name>
+    <lastName>Dzhodzhua 0</lastName>
+    <email>Head@mail.ru 0</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 1</name>
+    <lastName>Dzhodzhua 1</lastName>
+    <email>Head@mail.ru 1</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 2</name>
+    <lastName>Dzhodzhua 2</lastName>
+    <email>Head@mail.ru 2</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 3</name>
+    <lastName>Dzhodzhua 3</lastName>
+    <email>Head@mail.ru 3</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 4</name>
+    <lastName>Dzhodzhua 4</lastName>
+    <email>Head@mail.ru 4</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 5</name>
+    <lastName>Dzhodzhua 5</lastName>
+    <email>Head@mail.ru 5</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 6</name>
+    <lastName>Dzhodzhua 6</lastName>
+    <email>Head@mail.ru 6</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 7</name>
+    <lastName>Dzhodzhua 7</lastName>
+    <email>Head@mail.ru 7</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 8</name>
+    <lastName>Dzhodzhua 8</lastName>
+    <email>Head@mail.ru 8</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+  <contact>
+    <name>Andrew 9</name>
+    <lastName>Dzhodzhua 9</lastName>
+    <email>Head@mail.ru 9</email>
+    <photo>src\test\resources\stru.png</photo>
+  </contact>
+</list>

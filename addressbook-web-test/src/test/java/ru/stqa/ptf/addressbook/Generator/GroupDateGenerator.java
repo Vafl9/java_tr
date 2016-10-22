@@ -16,25 +16,23 @@ import java.util.List;
 public class GroupDateGenerator {
 
 
-    @Parameter (names = "-c",description = "Group count")
+    @Parameter(names = "-c", description = "Group count")
     public int count;
 
 
-    @Parameter (names = "-f",description = "File path")
+    @Parameter(names = "-f", description = "File path")
     public String file;
 
-    @Parameter (names = "-d", description = "Date format")
+    @Parameter(names = "-d", description = "Date format")
     public String format;
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
         GroupDateGenerator generator = new GroupDateGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        }
-        catch (ParameterException ex)
-        {
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
         }
@@ -47,13 +45,9 @@ public class GroupDateGenerator {
 
         if (format.equals("csv")) {
             saveAsCSV(group, new File(file));
-        }
-        else if(format.equals("xml"))
-        {
+        } else if (format.equals("xml")) {
             saveAsXML(group, new File(file));
-        }
-        else
-        {
+        } else {
             System.out.println("Error format");
         }
     }
@@ -69,18 +63,16 @@ public class GroupDateGenerator {
 
     private void saveAsCSV(List<GroupDate> groups, File file) throws IOException {
         Writer writer = new FileWriter(file);
-        for(GroupDate group: groups)
-        {
-            writer.write(String.format("%s;%s;%s\n",group.getName(),group.getHeader(),group.getFooter()));
+        for (GroupDate group : groups) {
+            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
         }
         writer.close();
     }
 
     private List<GroupDate> generateGroups(int count) {
         List<GroupDate> groups = new ArrayList<>();
-        for (int i = 0; i<count;i++)
-        {
-            groups.add(new GroupDate().withName(String.format("test1 %s",i)).withHeader(String.format("test2 %s",i)).withFooter(String.format("test3 %s",i)));
+        for (int i = 0; i < count; i++) {
+            groups.add(new GroupDate().withName(String.format("test1 %s", i)).withHeader(String.format("test2 %s", i)).withFooter(String.format("test3 %s", i)));
         }
         return groups;
     }
