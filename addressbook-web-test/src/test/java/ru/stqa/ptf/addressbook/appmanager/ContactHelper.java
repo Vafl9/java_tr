@@ -7,7 +7,6 @@ import org.testng.Assert;
 import ru.stqa.ptf.addressbook.model.ContactData;
 import ru.stqa.ptf.addressbook.model.Contacts;
 import ru.stqa.ptf.addressbook.model.GroupData;
-import ru.stqa.ptf.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -71,10 +70,35 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void addContactToGroup(ContactData contact, GroupData next)
+    public void deleteGroupFromContact(ContactData contact, GroupData group) {
+        selectGroupWithContact(group);
+        selectContact(contact.getId());
+        deleteGroup();
+        returnToContactPage();
+        returnToContactPageAfterDeleteGroup();
+
+    }
+
+    private void returnToContactPageAfterDeleteGroup() {
+        click(By.xpath(".//*[@id='right']/select"));
+        click(By.xpath(".//*[@id='right']/select/option[@value='']"));
+    }
+
+    private void deleteGroup() {
+        click(By.xpath(".//*[@id='content']/form[2]/div[3]/input"));
+    }
+
+
+    private void
+    selectGroupWithContact(GroupData group) {
+        click(By.xpath(".//*[@id='right']/select"));
+        click(By.xpath(String.format(".//*[@id='right']/select/option[@value='%s']",group.getId())));
+    }
+
+    public void addContactToGroup(ContactData contact, GroupData group)
     {
         selectContact(contact.getId());
-        addGroup(next);
+        addGroup(group);
         contactCache = null;
         returnToContactPage();
     }
@@ -182,4 +206,6 @@ public class ContactHelper extends HelperBase {
         wd.navigate().back();
         return new ContactData().withAllContactInformation(contactInformation);
     }
+
+
 }
