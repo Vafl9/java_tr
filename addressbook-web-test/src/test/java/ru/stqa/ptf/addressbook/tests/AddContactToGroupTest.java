@@ -31,11 +31,17 @@ public class AddContactToGroupTest extends TestBase {
     }
 
     @Test
-    public void testAddContactToGroup()
-    {
+    public void testAddContactToGroup() {
         Groups groups = app.db().groups();
         Contacts contactWithGroup = app.db().contacts();
-        app.contact().addContactToGroup(contactWithGroup.iterator().next(), groups.iterator().next());
+        ContactData contact = contactWithGroup.iterator().next();
+        GroupData group = groups.iterator().next();
+
+        if (group.getId() != contact.getGroups().iterator().next().getId()) {
+            app.contact().addContactToGroup(contact, group);
+        } else {
+            System.out.println("Контакт уже находится в выбранной группе");
+        }
         assertThat(app.contact().getContactCount(), equalTo(contactWithGroup.size()));
         verifyContactListInUi();
     }

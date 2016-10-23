@@ -114,8 +114,10 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContact(int i) {
-
-        wd.findElement(By.xpath(String.format(".//*[@id='%s']", i))).click();
+        if (isElementPresent(By.xpath(String.format(".//*[@id='%s']", i)))) {
+            wd.findElement(By.xpath(String.format(".//*[@id='%s']", i))).click();
+        }
+        return;
     }
 
     public void createNewContact(ContactData contactData, boolean b) {
