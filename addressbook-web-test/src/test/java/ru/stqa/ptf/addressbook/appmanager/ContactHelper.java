@@ -71,6 +71,20 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
+    public void addContactToGroup(ContactData contact, GroupData next)
+    {
+        selectContact(contact.getId());
+        addGroup(next);
+        contactCache = null;
+        returnToContactPage();
+    }
+
+    private void addGroup(GroupData group) {
+        click(By.xpath(".//*[@id='content']/form[2]/div[4]/select"));
+        click(By.xpath(String.format(".//*[@id='content']/form[2]/div[4]/select/option[@value = '%s']",group.getId())));
+        click(By.xpath(".//*[@id='content']/form[2]/div[4]/input"));
+    }
+
     public void returnToContactPage() {
         click(By.xpath(".//*[@id='nav']/ul/li[1]/a"));
     }

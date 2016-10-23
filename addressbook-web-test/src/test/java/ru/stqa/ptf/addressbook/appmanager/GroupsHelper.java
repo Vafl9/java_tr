@@ -20,7 +20,9 @@ public class GroupsHelper extends HelperBase {
     }
 
     public void submitGroupCreation() {
-        click(By.name("submit"));
+
+        click(By.xpath(".//*[@id='content']/form/input[2]"));
+        //click(By.name("submit"));
     }
 
     public void fillGroupForm(GroupData groupData) {
