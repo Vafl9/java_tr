@@ -60,7 +60,6 @@ public class ContactCreationTest extends TestBase {
     @Test(dataProvider = "validContactsXML")
     public void testContactCreationTest(ContactData contact) {
         Groups allGroup = app.db().groups();
-        allGroup.iterator().next();
         contact.inGroup(allGroup.iterator().next());
         app.goTo().contactPage();
         Contacts before = app.db().contacts();

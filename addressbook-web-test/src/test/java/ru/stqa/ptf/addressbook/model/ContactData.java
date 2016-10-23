@@ -83,7 +83,8 @@ public class ContactData {
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Transient
@@ -231,6 +232,9 @@ public class ContactData {
     }
 
     public ContactData inGroup(GroupData group) {
+        if (groups == null) {
+            groups = new HashSet<GroupData>();
+        }
         groups.add(group);
         return this;
     }
