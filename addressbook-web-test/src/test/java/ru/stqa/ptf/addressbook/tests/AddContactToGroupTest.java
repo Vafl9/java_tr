@@ -37,11 +37,18 @@ public class AddContactToGroupTest extends TestBase {
         ContactData contact = contactWithGroup.iterator().next();
         GroupData group = groups.iterator().next();
 
-        if (group.getId() != contact.getGroups().iterator().next().getId()) {
+
+        if(contact.getGroups().size() == 0)
+        {
+            app.contact().addContactToGroup(contact, group);
+        }
+        else if (group.getId() != contact.getGroups().iterator().next().getId()) {
             app.contact().addContactToGroup(contact, group);
         } else {
             System.out.println("Контакт уже находится в выбранной группе");
         }
+
+
         assertThat(app.contact().getContactCount(), equalTo(contactWithGroup.size()));
         verifyContactListInUi();
     }

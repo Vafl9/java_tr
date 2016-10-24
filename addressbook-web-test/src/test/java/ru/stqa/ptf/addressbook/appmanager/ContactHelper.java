@@ -117,7 +117,10 @@ public class ContactHelper extends HelperBase {
         if (isElementPresent(By.xpath(String.format(".//*[@id='%s']", i)))) {
             wd.findElement(By.xpath(String.format(".//*[@id='%s']", i))).click();
         }
-        return;
+        else {
+            System.out.println("Контактов с группами нет");
+            return;
+        }
     }
 
     public void createNewContact(ContactData contactData, boolean b) {
